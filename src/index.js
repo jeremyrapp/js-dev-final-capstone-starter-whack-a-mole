@@ -275,11 +275,20 @@ function stopGame(){
 * is clicked.
 *
 */
-function startGame() {
+// function startGame() {
+//   setDuration(10);
+//   setEventListeners(moles);  
+//   startTimer();
+//   showUp();
+//   return "game started";
+// }
+
+function startGame(){
   setDuration(10);
-  setEventListeners(moles);  
-  startTimer();
   showUp();
+  setEventListeners(moles);
+  startTimer();
+  clearScore();
   return "game started";
 }
 
