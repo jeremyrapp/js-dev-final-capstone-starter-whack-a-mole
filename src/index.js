@@ -241,7 +241,7 @@ function setEventListeners(moles) {
   moles.forEach(mole => {
     mole.addEventListener('click', whack);
 });
-//Retun moles;
+//Return moles;
 return moles;
 }
   
