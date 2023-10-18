@@ -154,7 +154,12 @@ function showAndHide(hole, delay){
 */
 function toggleVisibility(hole){
   // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
-  hole.classList.toggle('show');
+ if(document.getElementsByClassName('show').length === 0){
+      hole.classList.toggle("show")
+  }
+  else {
+    hole.classList.remove("show")
+  }
   return hole;
 }
 
@@ -284,9 +289,9 @@ function stopGame(){
 // }
 
 function startGame(){
-  setDuration(10);
+  setDuration(15);
   showUp();
-  setEventListeners();
+  setEventListeners(moles);
   startTimer();
   clearScore();
   return "game started";
