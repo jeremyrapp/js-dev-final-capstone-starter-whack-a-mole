@@ -286,7 +286,7 @@ function stopGame(){
 function startGame(){
   setDuration(10);
   showUp();
-  setEventListeners(moles);
+  setEventListeners();
   startTimer();
   clearScore();
   return "game started";
