@@ -10,6 +10,9 @@ let timer;
 let lastHole = 0;
 let points = 0;
 let difficulty = "normal";
+let gameRunning = false;
+let lastTimeoutId;
+
 
 /**
  * Generates a random integer within a range.
@@ -50,8 +53,8 @@ function setDelay(difficulty) {
     return randomInteger(600, 1200);
   } else {
     // Handle invalid difficulty value
-    console.error("Invalid difficulty:", difficulty);
-    return 1500; // Default to easy difficulty
+    // console.error("Invalid difficulty:", difficulty);
+    return 1000; // Default to normal difficulty
   }
 }
 
@@ -71,8 +74,8 @@ function setDelay(difficulty) {
  */
 function chooseHole(holes) {
   // TODO: Write your code here.
-  // const index = randomInteger(0, 8);
-  const index = randomInteger(0, holes.length - 1); 
+  const index = randomInteger(0, 8);
+  // const index = randomInteger(0, holes.length - 1); 
   const hole = holes[index];
   if (hole === lastHole) {
     return chooseHole(holes);
@@ -124,7 +127,9 @@ function gameOver() {
 function showUp() {
   let delay = setDelay(difficulty); // TODO: Update so that it uses setDelay()
   const hole = chooseHole(holes);  // TODO: Update so that it use chooseHole()
-  return showAndHide(hole, delay);
+  // return showAndHide(hole, delay);
+  lastTimeoutId = showAndHide(hole, delay);
+  return lastTimeoutId;
 }
 
 /**
@@ -143,6 +148,7 @@ function showAndHide(hole, delay){
     toggleVisibility(hole);
     gameOver();
   }, delay); // TODO: change the setTimeout delay to the one provided as a parameter
+  lastTimeoutId = timeoutID;  // Store the timeout ID
   return timeoutID;
 }
 
@@ -154,12 +160,13 @@ function showAndHide(hole, delay){
 */
 function toggleVisibility(hole){
   // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
- if(document.getElementsByClassName('show').length === 0){
-      hole.classList.toggle("show")
-  }
-  else {
-    hole.classList.remove("show")
-  }
+//  if(document.getElementsByClassName('show').length === 0){
+//       hole.classList.toggle("show")
+//   }
+//   else {
+//     hole.classList.remove("show")
+//   }
+  hole.classList.toggle('show');
   return hole;
 }
 
@@ -232,6 +239,8 @@ function startTimer() {
 function whack(event) {
   // Call updateScore();
   updateScore();
+   // Play the hit sound
+   playAudio(audioHit);
   // Return points;
   return points;
 }
@@ -241,7 +250,7 @@ function whack(event) {
 * Adds the 'click' event listeners to the moles. See the instructions
 * for an example on how to set event listeners using a for loop.
 */
-function setEventListeners(moles) {
+function setEventListeners() {
   // TODO: Write your code here
   moles.forEach(mole => {
     mole.addEventListener('click', whack);
@@ -269,8 +278,14 @@ function setDuration(duration) {
 *
 */
 function stopGame(){
-  // stopAudio(song);  //optional
+  // stopAudio(song);  
   clearInterval(timer);
+  gameRunning = false;  // Mark the game as not running.
+  clearTimeout(lastTimeoutId);
+  // Hide any mole that might be showing
+  holes.forEach(hole => {
+    hole.classList.remove('show');
+  });
   return "game stopped";
 }
 
@@ -280,25 +295,79 @@ function stopGame(){
 * is clicked.
 *
 */
-// function startGame() {
-//   setDuration(10);
-//   setEventListeners(moles);  
-//   startTimer();
+
+// function startGame(){
+//   setDuration(15);
 //   showUp();
+//   setEventListeners();
+//   startTimer();
+//   clearScore();
 //   return "game started";
 // }
 
-function startGame(){
-  setDuration(15);
-  showUp();
-  setEventListeners(moles);
-  startTimer();
-  clearScore();
-  return "game started";
+function startGame() {
+  if (!gameRunning) {  // Check if the game is not already running.
+      setDuration(15);
+      showUp();
+      setEventListeners();
+      startTimer();
+      clearScore();
+      gameRunning = true;  // Mark the game as running.
+      return "game started";
+  } else {
+      // Here, you could handle any behaviors you want to occur if someone 
+      // tries to "start" an already-running game. For instance, you might
+      // choose to do nothing, or you could stop and restart the game, etc.
+  }
 }
 
-startButton.addEventListener("click", startGame);
+// startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", toggleGame);
 
+function toggleGame() {
+  if (startButton.textContent === "start") {
+      startGame();
+      startButton.textContent = "stop";
+  } else {
+      stopGame();
+      startButton.textContent = "start";
+  }
+}
+
+function toggleAudio() {
+  // If the audio is currently playing, we'll pause it. Otherwise, we'll play it.
+  if (song.paused) {
+      song.play();
+      document.getElementById("audio").textContent = "pause";
+  } else {
+      song.pause();
+      document.getElementById("audio").textContent = "play";
+  }
+}
+
+const audioHit = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/hit.mp3?raw=true');
+const song = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/molesong.mp3?raw=true');
+
+function playAudio(audioObject) {
+  audioObject.play();
+}
+
+function loopAudio(audioObject) {
+  audioObject.loop = true;
+  playAudio(audioObject);
+}
+
+function stopAudio(audioObject) {
+  audioObject.pause();
+}
+
+function play(){
+  playAudio(song);
+}
+
+song.addEventListener("ended", function() {
+  document.getElementById("audio").textContent = "play";
+});
 
 // Please do not modify the code below.
 // Used for testing purposes.

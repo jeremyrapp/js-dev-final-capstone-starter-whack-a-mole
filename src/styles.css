@@ -1,6 +1,6 @@
 html {
   /*background: url('./assets/background.png') no-repeat center center fixed;*/
-  background: url('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/background.png?raw=true') no-repeat center center fixed;
+  background: url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/background.png?raw=true') no-repeat center center fixed;
   box-sizing: border-box;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -20,7 +20,7 @@ h1 {
 
 h2 {
   text-align: center;
-  font-size: 40px;
+  font-size: 32px;
   color: white;
   -webkit-text-stroke: 1px black;
 }
@@ -28,6 +28,11 @@ h2 {
 #start {
     text-align: center;
     font-size: 30px;
+}
+
+#audio {
+  text-align: center;
+  font-size: 30px;
 }
 
 #timer{
@@ -40,7 +45,8 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  /* cursor: url('./assets/mallet.png'), pointer; */
+  cursor: url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/mallet.png?raw=true'), pointer;
+  /* cursor: url('./assets/mall.png'), pointer; */
 }
 
 .hole {
@@ -52,7 +58,7 @@ h2 {
 .hole:after {
   display: block;
   /*background: url("./assets/hole.png") bottom center no-repeat;*/
-  background: url("https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/hole.png?raw=true") bottom center no-repeat;
+  background: url("https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/hole.png?raw=true") bottom center no-repeat;
   background-size:contain;
   content:'';
   width: 100%;
@@ -65,14 +71,15 @@ h2 {
 
 .mole {
   /*background:url('./assets/mole.png') bottom center no-repeat;*/
-  background:url('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/mole.png?raw=true') bottom center no-repeat;
+  background:url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/mole.png?raw=true') bottom center no-repeat;
   background-size: 40%;
   position: absolute;
   top: 100%;
   width: 100%;
   height: 100%;
   /*transition: transform 0.5s;*/
-  transition: all 1s;
+  /* transition: all 1s; */
+  transition: all 1s ease-in-out;
   pointer-events:auto;
 }
 
@@ -80,3 +87,9 @@ h2 {
   top: 0;
   /*transform: scale(1.1);*/
 }
+
+#start:hover, #audio:hover {
+  background-color: #ccc;
+  transform: scale(1.05);
+}
+
