@@ -25,12 +25,7 @@ h2 {
   -webkit-text-stroke: 1px black;
 }
 
-#start {
-    text-align: center;
-    font-size: 30px;
-}
-
-#audio {
+#start, #audio {
   text-align: center;
   font-size: 30px;
 }
