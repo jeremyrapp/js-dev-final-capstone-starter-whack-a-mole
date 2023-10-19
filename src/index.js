@@ -202,20 +202,38 @@ function clearScore() {
   return points;
 }
 
+
 /**
 *
 * Updates the control board with the timer if time > 0
 *
 */
+// function updateTimer() {
+//   // TODO: Write your code here.
+//   // hint: this code is provided to you in the instructions.
+//   if (time > 0){
+//     time -= 1;
+//     timerDisplay.textContent = time;
+//   }
+//   return time;
+// }
+
 function updateTimer() {
-  // TODO: Write your code here.
-  // hint: this code is provided to you in the instructions.
-  if (time > 0){
+  if (time > 0) {
     time -= 1;
     timerDisplay.textContent = time;
+  } else {
+    stopGame();
+    stopMusic(); // Add this line to stop the music
   }
   return time;
 }
+
+function stopMusic() {
+  song.currentTime = 0; // Reset audio playback position to the beginning
+  song.pause();
+}
+
 
 /**
 *
@@ -327,7 +345,7 @@ function stopGame(){
 
 // Initialize game settings
 function initializeGame() {
-  setDuration(20); // Set the initial game duration (20 seconds)
+  setDuration(15); // Set the initial game duration (15 seconds)
   clearScore();    // Clear the score
 }
 
@@ -359,6 +377,8 @@ function startGame() {
     // Handle any behaviors you want when resuming the game (e.g., show a message).
   }
 }
+
+
 
 startButton.addEventListener("click", startGame);
 
