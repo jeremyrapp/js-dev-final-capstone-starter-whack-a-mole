@@ -215,7 +215,7 @@ function updateTimer() {
     timerDisplay.textContent = time;
   } else {
     stopGame();
-    stopMusic(); // Add this line to stop the music
+    stopMusic(); 
   }
   return time;
 }
@@ -360,8 +360,8 @@ function toggleAudio() {
 
 
 
-const audioHit = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/hit.mp3?raw=true');
-const song = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/molesong.mp3?raw=true');
+const audioHit = new Audio('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/hit.mp3?raw=true');
+const song = new Audio('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/molesong.mp3?raw=true');
 
 function playAudio(audioObject) {
   audioObject.play();
