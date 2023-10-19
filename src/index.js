@@ -187,6 +187,7 @@ function updateScore() {
   return points;
 }
 
+
 /**
 *
 * This function clears the score by setting `points = 0`. It also updates
@@ -237,6 +238,8 @@ function startTimer() {
 *
 */
 function whack(event) {
+  // Reset points to 0 before updating the score
+  points = 0;
   // Call updateScore();
   updateScore();
    // Play the hit sound
@@ -282,6 +285,7 @@ function stopGame(){
   clearInterval(timer);
   gameRunning = false;  // Mark the game as not running.
   clearTimeout(lastTimeoutId);
+  startButton.textContent = "start"; // Change the button text to "start"
   // Hide any mole that might be showing
   holes.forEach(hole => {
     hole.classList.remove('show');
@@ -305,34 +309,84 @@ function stopGame(){
 //   return "game started";
 // }
 
+// function startGame() {
+//   if (!gameRunning) {  // Check if the game is not already running.
+//       setDuration(15);
+//       showUp();
+//       setEventListeners();
+//       startTimer();
+//       clearScore();
+//       gameRunning = true;  // Mark the game as running.
+//       return "game started";
+//   } else {
+//       // Here, you could handle any behaviors you want to occur if someone 
+//       // tries to "start" an already-running game. For instance, you might
+//       // choose to do nothing, or you could stop and restart the game, etc.
+//   }
+// }
+
+// Initialize game settings
+function initializeGame() {
+  setDuration(20); // Set the initial game duration (20 seconds)
+  clearScore();    // Clear the score
+}
+
+// function startGame() {
+//   if (!gameRunning) {  // Check if the game is not already running.
+//     initializeGame();  // Initialize game settings only when starting a new game
+//     showUp();
+//     setEventListeners();
+//     startTimer();
+//     gameRunning = true;  // Mark the game as running.
+//     return "game started";
+//   } else {
+//     // Handle any behaviors you want when resuming the game (e.g., show a message).
+//   }
+// }
+
 function startGame() {
   if (!gameRunning) {  // Check if the game is not already running.
-      setDuration(15);
-      showUp();
-      setEventListeners();
-      startTimer();
-      clearScore();
-      gameRunning = true;  // Mark the game as running.
-      return "game started";
+    if (!time) {
+      // Only initialize game settings when starting a new game
+      initializeGame();
+    }
+    showUp();
+    setEventListeners();
+    startTimer();
+    gameRunning = true;  // Mark the game as running.
+    return "game started";
   } else {
-      // Here, you could handle any behaviors you want to occur if someone 
-      // tries to "start" an already-running game. For instance, you might
-      // choose to do nothing, or you could stop and restart the game, etc.
+    // Handle any behaviors you want when resuming the game (e.g., show a message).
   }
 }
 
-// startButton.addEventListener("click", startGame);
-startButton.addEventListener("click", toggleGame);
+startButton.addEventListener("click", startGame);
+
+
+// function toggleGame() {
+//   if (startButton.textContent === "start") {
+//       startGame();
+//       startButton.textContent = "pause";
+//   } else {
+//       stopGame();
+//       startButton.textContent = "start";
+//   }
+// }
 
 function toggleGame() {
-  if (startButton.textContent === "start") {
-      startGame();
-      startButton.textContent = "stop";
+  if (startButton.classList.contains("game-start")) {
+    startGame();
+    startButton.textContent = "pause";
+    startButton.classList.remove("game-start");
   } else {
-      stopGame();
-      startButton.textContent = "start";
+    stopGame();
+    startButton.textContent = "resume";
+    startButton.classList.add("game-start");
   }
 }
+
+
+startButton.addEventListener("click", toggleGame);
 
 function toggleAudio() {
   // If the audio is currently playing, we'll pause it. Otherwise, we'll play it.
@@ -344,6 +398,8 @@ function toggleAudio() {
       document.getElementById("audio").textContent = "play";
   }
 }
+
+
 
 const audioHit = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/hit.mp3?raw=true');
 const song = new Audio('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/molesong.mp3?raw=true');
