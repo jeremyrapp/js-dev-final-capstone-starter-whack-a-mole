@@ -208,15 +208,6 @@ function clearScore() {
 * Updates the control board with the timer if time > 0
 *
 */
-// function updateTimer() {
-//   // TODO: Write your code here.
-//   // hint: this code is provided to you in the instructions.
-//   if (time > 0){
-//     time -= 1;
-//     timerDisplay.textContent = time;
-//   }
-//   return time;
-// }
 
 function updateTimer() {
   if (time > 0) {
@@ -318,49 +309,11 @@ function stopGame(){
 *
 */
 
-// function startGame(){
-//   setDuration(15);
-//   showUp();
-//   setEventListeners();
-//   startTimer();
-//   clearScore();
-//   return "game started";
-// }
-
-// function startGame() {
-//   if (!gameRunning) {  // Check if the game is not already running.
-//       setDuration(15);
-//       showUp();
-//       setEventListeners();
-//       startTimer();
-//       clearScore();
-//       gameRunning = true;  // Mark the game as running.
-//       return "game started";
-//   } else {
-//       // Here, you could handle any behaviors you want to occur if someone 
-//       // tries to "start" an already-running game. For instance, you might
-//       // choose to do nothing, or you could stop and restart the game, etc.
-//   }
-// }
-
 // Initialize game settings
 function initializeGame() {
   setDuration(15); // Set the initial game duration (15 seconds)
   clearScore();    // Clear the score
 }
-
-// function startGame() {
-//   if (!gameRunning) {  // Check if the game is not already running.
-//     initializeGame();  // Initialize game settings only when starting a new game
-//     showUp();
-//     setEventListeners();
-//     startTimer();
-//     gameRunning = true;  // Mark the game as running.
-//     return "game started";
-//   } else {
-//     // Handle any behaviors you want when resuming the game (e.g., show a message).
-//   }
-// }
 
 function startGame() {
   if (!gameRunning) {  // Check if the game is not already running.
@@ -378,20 +331,7 @@ function startGame() {
   }
 }
 
-
-
 startButton.addEventListener("click", startGame);
-
-
-// function toggleGame() {
-//   if (startButton.textContent === "start") {
-//       startGame();
-//       startButton.textContent = "pause";
-//   } else {
-//       stopGame();
-//       startButton.textContent = "start";
-//   }
-// }
 
 function toggleGame() {
   if (startButton.classList.contains("game-start")) {
@@ -404,7 +344,6 @@ function toggleGame() {
     startButton.classList.add("game-start");
   }
 }
-
 
 startButton.addEventListener("click", toggleGame);
 
