@@ -87,8 +87,8 @@ nav {
 
 .mole {
   /*background:url('./assets/mole.png') bottom center no-repeat;*/
-  background:url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/goblin.png?raw=true') bottom center no-repeat;
-  /* background:url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/gob.png?raw=true') bottom center no-repeat; */
+  /* background:url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/goblin.png?raw=true') bottom center no-repeat; */
+  background:url('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/orc.png?raw=true') bottom center no-repeat;
   background-size: 40%;
   position: absolute;
   top: 100%;
