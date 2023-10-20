@@ -295,13 +295,15 @@ function stopGame(){
   clearInterval(timer);
   gameRunning = false;  // Mark the game as not running.
   clearTimeout(lastTimeoutId);
-  startButton.textContent = "resume"; 
+  startButton.textContent = "start"; 
   // Hide any mole that might be showing
   holes.forEach(hole => {
     hole.classList.remove('show');
   });
+  audioButton.textContent = "play"; // Reset the background music button
   return "game stopped";
 }
+
 
 /**
 *
@@ -312,7 +314,7 @@ function stopGame(){
 
 // Initialize game settings
 function initializeGame() {
-  setDuration(10); // Set the initial game duration (15 seconds)
+  setDuration(15); // Set the initial game duration (15 seconds)
   clearScore();    // Clear the score
 }
 
@@ -358,15 +360,13 @@ function toggleGame() {
 
 startButton.addEventListener("click", toggleGame);
 
-
 function toggleAudio() {
-  // If the audio is currently playing, we'll pause it. Otherwise, we'll play it.
   if (song.paused) {
-      song.play();
-      document.getElementById("audio").textContent = "pause";
+    song.play();
+    audioButton.textContent = "pause";
   } else {
-      song.pause();
-      document.getElementById("audio").textContent = "play";
+    song.pause();
+    audioButton.textContent = "play";
   }
 }
 
