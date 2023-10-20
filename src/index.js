@@ -10,9 +10,9 @@ let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
-let difficulty = "normal";
 let gameRunning = false;
 let lastTimeoutId;
+let difficulty;
 
 
 /**
@@ -161,12 +161,6 @@ function showAndHide(hole, delay){
 */
 function toggleVisibility(hole){
   // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
-//  if(document.getElementsByClassName('show').length === 0){
-//       hole.classList.toggle("show")
-//   }
-//   else {
-//     hole.classList.remove("show")
-//   }
   hole.classList.toggle('show');
   return hole;
 }
@@ -314,8 +308,15 @@ function stopGame(){
 
 // Initialize game settings
 function initializeGame() {
-  setDuration(15); // Set the initial game duration (15 seconds)
+  setDuration(20); // Set the initial game duration (20 seconds)
   clearScore();    // Clear the score
+}
+
+setDifficulty('normal'); // Set the default difficulty level
+
+function setDifficulty(difficultyLevel) {
+  difficulty = difficultyLevel;
+  return difficulty;
 }
 
 function startGame() {
