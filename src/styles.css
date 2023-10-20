@@ -43,6 +43,7 @@ nav {
   border: none; 
   border-radius: 3px; 
   cursor: pointer; 
+}
 
 #start, #audio {
   text-align: center;
