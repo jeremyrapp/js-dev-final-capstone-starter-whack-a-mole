@@ -1,6 +1,7 @@
 const holes = document.querySelectorAll('.hole');
 const moles = document.querySelectorAll('.mole');
 const startButton = document.querySelector('#start');
+const audioButton = document.querySelector('#audio');
 // TODO: Add the missing query selectors:
 const score = document.querySelector('#score'); // Use querySelector() to get the score element
 const timerDisplay = document.querySelector('#timer'); // use querySelector() to get the timer element.
@@ -223,6 +224,7 @@ function updateTimer() {
 function stopMusic() {
   song.currentTime = 0; // Reset audio playback position to the beginning
   song.pause();
+  document.getElementById("audio").textContent = "play"; // Reset the button text to "play"
 }
 
 
@@ -290,11 +292,12 @@ function setDuration(duration) {
 *
 */
 function stopGame(){
-  // stopAudio(song);  
+  stopAudio(song);  
   clearInterval(timer);
   gameRunning = false;  // Mark the game as not running.
   clearTimeout(lastTimeoutId);
   startButton.textContent = "start"; // Change the button text to "start"
+  audioButton.textContent = "play"; // Change the button text to "play"
   // Hide any mole that might be showing
   holes.forEach(hole => {
     hole.classList.remove('show');
@@ -311,16 +314,13 @@ function stopGame(){
 
 // Initialize game settings
 function initializeGame() {
-  setDuration(15); // Set the initial game duration (15 seconds)
+  setDuration(10); // Set the initial game duration (15 seconds)
   clearScore();    // Clear the score
 }
 
 function startGame() {
-  if (!gameRunning) {  // Check if the game is not already running.
-    if (!time) {
-      // Only initialize game settings when starting a new game
-      initializeGame();
-    }
+  if (!gameRunning || time <= 0) {  // Check if the game is not already running or if it's over.
+    initializeGame();  // Reset game settings.
     showUp();
     setEventListeners();
     startTimer();
@@ -330,6 +330,7 @@ function startGame() {
     // Handle any behaviors you want when resuming the game (e.g., show a message).
   }
 }
+
 
 startButton.addEventListener("click", startGame);
 
@@ -344,6 +345,8 @@ function toggleGame() {
     startButton.classList.add("game-start");
   }
 }
+
+
 
 startButton.addEventListener("click", toggleGame);
 
