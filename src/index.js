@@ -249,8 +249,6 @@ function startTimer() {
 *
 */
 function whack(event) {
-  // Reset points to 0 before updating the score
-  points = 0;
   // Call updateScore();
   updateScore();
    // Play the hit sound
@@ -291,13 +289,13 @@ function setDuration(duration) {
 * timer using clearInterval. Returns "game stopped".
 *
 */
+
 function stopGame(){
   stopAudio(song);  
   clearInterval(timer);
   gameRunning = false;  // Mark the game as not running.
   clearTimeout(lastTimeoutId);
-  startButton.textContent = "start"; // Change the button text to "start"
-  audioButton.textContent = "play"; // Change the button text to "play"
+  startButton.textContent = "resume"; 
   // Hide any mole that might be showing
   holes.forEach(hole => {
     hole.classList.remove('show');
@@ -326,29 +324,40 @@ function startGame() {
     startTimer();
     gameRunning = true;  // Mark the game as running.
     return "game started";
-  } else {
-    // Handle any behaviors you want when resuming the game (e.g., show a message).
-  }
+  } 
 }
 
+// startButton.addEventListener("click", startGame);
 
-startButton.addEventListener("click", startGame);
+function resumeGame() {
+  startTimer();
+  showUp();
+  gameRunning = true;
+  return "game resumed";
+}
 
 function toggleGame() {
-  if (startButton.classList.contains("game-start")) {
-    startGame();
-    startButton.textContent = "pause";
-    startButton.classList.remove("game-start");
-  } else {
-    stopGame();
-    startButton.textContent = "resume";
-    startButton.classList.add("game-start");
+  if (startButton.textContent === "start" || startButton.textContent === "resume") {
+      if (time === 10 || time === 0) {  // If the game hasn't started or has just ended
+          initializeGame();  // Reset game settings ONLY if the game hasn't started or just ended.
+          showUp();
+          setEventListeners();
+          startTimer();
+          gameRunning = true;  // Mark the game as running.
+          startButton.textContent = "pause";
+      } else {  // If the game was paused and we want to resume
+          resumeGame();
+          startButton.textContent = "pause";
+      }
+  } else if (startButton.textContent === "pause") {
+      stopGame();
+      startButton.textContent = "resume";
   }
 }
-
 
 
 startButton.addEventListener("click", toggleGame);
+
 
 function toggleAudio() {
   // If the audio is currently playing, we'll pause it. Otherwise, we'll play it.
@@ -360,7 +369,6 @@ function toggleAudio() {
       document.getElementById("audio").textContent = "play";
   }
 }
-
 
 
 const audioHit = new Audio('https://github.com/jeremyrapp/js-dev-final-capstone-starter-whack-a-mole/blob/main/assets/hit.mp3?raw=true');
